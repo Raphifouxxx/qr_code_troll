@@ -1,171 +1,250 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🔴 VERROUILLAGE</title>
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: 'Courier New', monospace;
-            color: #ff3355;
-            text-align: center;
-            padding: 20px;
-            overflow: hidden;
-        }
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.95);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-        .lock-icon { font-size: 5em; animation: pulse 0.5s infinite alternate; }
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.7; }
-            100% { transform: scale(1.2); opacity: 1; }
-        }
-        h1 { font-size: 2.5em; letter-spacing: 5px; margin: 20px 0; }
-        .timer { font-size: 4em; font-weight: bold; color: #ff3355; text-shadow: 0 0 30px #ff3355; }
-        .sub { color: #ff8888; font-size: 1.2em; margin: 10px 0; }
-        .footer { color: #333; font-size: 0.7em; margin-top: 30px; }
-        .btn-reset {
-            background: #ff3355;
-            color: #fff;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-top: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-reset:hover { background: #cc1133; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎲 JEU DU DÉ - CAT</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        background: #0a0a0a;
+        font-family: 'Segoe UI', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        transition: 0.5s;
+    }
+    .container {
+        background: #1a1a1a;
+        border-radius: 40px;
+        padding: 40px 30px;
+        max-width: 450px;
+        width: 100%;
+        text-align: center;
+        border: 1px solid #2a2a2a;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        transition: 0.5s;
+    }
+    h1 { color: #00ff88; font-size: 2.2em; font-weight: 300; }
+    .sub { color: #666; font-size: 0.9em; margin: 10px 0 25px; }
+    .dice-area {
+        background: #111;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 15px 0;
+        border: 2px dashed #2a2a2a;
+        min-height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .dice-area .emoji { font-size: 4em; }
+    .dice-area .message { color: #888; margin-top: 10px; font-size: 1.1em; }
+    .btn {
+        background: #00ff88;
+        color: #0a0a0a;
+        border: none;
+        padding: 18px 30px;
+        font-size: 1.2em;
+        font-weight: 700;
+        border-radius: 50px;
+        margin: 10px 0;
+        cursor: pointer;
+        width: 100%;
+        transition: 0.3s;
+    }
+    .btn:hover { background: #00cc77; transform: scale(1.02); }
+    .btn:active { transform: scale(0.95); }
+    .btn-danger {
+        background: #ff3355;
+        color: #fff;
+    }
+    .btn-danger:hover { background: #cc1133; }
+    .footer {
+        color: #333;
+        font-size: 0.65em;
+        margin-top: 25px;
+        border-top: 1px solid #1a1a1a;
+        padding-top: 15px;
+    }
+    .badge {
+        display: inline-block;
+        background: #ff335544;
+        color: #ff3355;
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-size: 0.7em;
+        margin-top: 10px;
+    }
+</style>
 </head>
 <body>
 
-<div class="overlay" id="lockScreen">
-    <div class="lock-icon">🔴</div>
-    <h1>VERROUILLÉ</h1>
-    <div class="timer" id="timer">30</div>
-    <div class="sub">⏳ Redémarrage automatique dans...</div>
-    <div style="color:#ff8888; font-size:0.9em; margin:10px 0;">🚨 Ne quittez pas cette page</div>
-    <button class="btn-reset" onclick="resetTrap()">🔄 Réinitialiser (cache)</button>
-    <div class="footer">🔒 Session CAT • 256-bit AES</div>
+<div class="container" id="mainBox">
+    <h1>🎲 JEU DU DÉ</h1>
+    <div class="sub">Tentez votre chance • 1 lancer gratuit</div>
+
+    <div class="dice-area" id="diceArea">
+        <div class="emoji" id="diceEmoji">🎲</div>
+        <div class="message" id="diceMessage">Cliquez sur le bouton pour lancer</div>
+    </div>
+
+    <button class="btn" id="rollBtn">🎲 LANCER LE DÉ</button>
+    <button class="btn btn-danger" id="resetBtn" style="display:none;">🔄 Recommencer</button>
+
+    <div class="badge" id="trollBadge" style="display:none;">⚠️ Piège activé</div>
+    <div class="footer">🔒 Sécurisé par CAT • 2026</div>
 </div>
 
 <script>
-    // ---------- PLEIN ÉCRAN ----------
-    document.documentElement.requestFullscreen().catch(() => {});
+    (function() {
+        const diceEmoji = document.getElementById('diceEmoji');
+        const diceMessage = document.getElementById('diceMessage');
+        const rollBtn = document.getElementById('rollBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const mainBox = document.getElementById('mainBox');
+        const badge = document.getElementById('trollBadge');
 
-    // ---------- LAMPE TORCHE (Android / iOS via URL) ----------
-    function toggleTorch() {
-        if (navigator.userAgent.includes('Android')) {
-            window.location.href = 'intent://flashlight/#Intent;action=android.media.action.STILL_IMAGE_CAMERA;end';
-        } else if (navigator.userAgent.includes('iPhone')) {
-            window.location.href = 'https://www.google.com/search?q=torche+iphone'; // fallback
-        }
-    }
-    toggleTorch();
+        // Liste des résultats possibles (dont certains sont des pièges)
+        const outcomes = [
+            { emoji: '🍕', msg: 'Vous avez gagné une pizza virtuelle !' },
+            { emoji: '💩', msg: 'Mince, c\'est une crotte...' },
+            { emoji: '🐱', msg: 'CAT vous observe. 🐱' },
+            { emoji: '🚀', msg: 'Félicitations ! Vous êtes un astronaute.' },
+            { emoji: '🧻', msg: 'Papier toilette infini pour vous !' },
+            { emoji: '🎁', msg: 'Cadeau surprise : un troll !' },
+            { emoji: '🤡', msg: 'Vous êtes le clown du groupe.' },
+            { emoji: '💀', msg: 'Trop tard... Le piège est activé.' }
+        ];
 
-    // ---------- SON D'ALARME (Web Audio API) ----------
-    function playAlarm() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            oscillator.frequency.value = 800;
-            oscillator.type = 'square';
-            gainNode.gain.value = 0.5;
-            oscillator.start();
-            setTimeout(() => {
-                oscillator.frequency.value = 1000;
-            }, 200);
-            setTimeout(() => {
-                oscillator.frequency.value = 600;
-            }, 400);
-            setTimeout(() => {
-                oscillator.stop();
-                // Rejouer après 2 secondes
-                setTimeout(playAlarm, 2000);
-            }, 600);
-        } catch(e) { console.log('Alarme non supportée'); }
-    }
-    playAlarm();
+        let rollCount = 0;
+        let trapActivated = false;
 
-    // ---------- COMPTE À REBOURS (boucle infinie) ----------
-    let timeLeft = 30;
-    const timerElement = document.getElementById('timer');
+        // Fonction pour lancer le dé
+        function rollDice() {
+            if (trapActivated) return;
 
-    const countdown = setInterval(() => {
-        timeLeft--;
-        timerElement.textContent = timeLeft;
-        if (timeLeft <= 0) {
-            timeLeft = 30; // reset
-            // Vibration supplémentaire
-            if (navigator.vibrate) {
-                navigator.vibrate([500, 200, 500, 200, 1000]);
+            rollCount++;
+            // Sélection aléatoire
+            const randomIndex = Math.floor(Math.random() * outcomes.length);
+            const result = outcomes[randomIndex];
+            diceEmoji.textContent = result.emoji;
+            diceMessage.textContent = result.msg;
+
+            // Vibrer
+            if (navigator.vibrate) navigator.vibrate(100);
+
+            // Effet visuel
+            mainBox.style.borderColor = '#00ff88';
+            setTimeout(() => mainBox.style.borderColor = '#2a2a2a', 300);
+
+            // Piège au 3e ou 5e lancer
+            if (rollCount === 3 || rollCount === 5) {
+                activateTrap();
             }
-            // Changement de couleur
-            document.querySelector('.overlay').style.backgroundColor = '#1a0000';
-            setTimeout(() => document.querySelector('.overlay').style.backgroundColor = 'rgba(0,0,0,0.95)', 300);
-        }
-    }, 1000);
 
-    // ---------- BLOQUER LE BOUTON RETOUR ----------
-    history.pushState(null, null, window.location.href);
-    window.addEventListener('popstate', function(e) {
-        history.pushState(null, null, window.location.href);
-        // Réactivation du plein écran
-        document.documentElement.requestFullscreen().catch(() => {});
-    });
-
-    // ---------- NOTIFICATIONS PUSH ----------
-    if ('Notification' in window && Notification.permission === 'granted') {
-        setInterval(() => {
-            new Notification('🔴 ALERTE CAT', {
-                body: 'Votre téléphone est verrouillé. Redémarrez.',
-                icon: 'https://i.imgur.com/6o0kS.png'
-            });
-        }, 10000);
-    } else if ('Notification' in window && Notification.permission === 'default') {
-        Notification.requestPermission();
-    }
-
-    // ---------- FONCTION DE RÉINITIALISATION (fausse) ----------
-    function resetTrap() {
-        if (confirm('🔄 Voulez-vous vraiment réinitialiser ? (Cette action est irréversible)')) {
-            alert('❌ Erreur : Réinitialisation impossible. Contactez CAT.');
-            // Ouvre les paramètres pour les perdre
-            if (navigator.userAgent.includes('Android')) {
-                window.location.href = 'intent://settings/#Intent;action=android.settings.SETTINGS;end';
-            } else if (navigator.userAgent.includes('iPhone')) {
-                alert('Allez dans Réglages > Général > Réinitialiser.');
+            // Si le résultat est le troll, activer aussi
+            if (result.emoji === '💀' || result.emoji === '🤡') {
+                activateTrap();
             }
         }
-    }
 
-    // ---------- CHANGEMENT DE TITRE ----------
-    const titles = ['🔴 VERROUILLÉ', '⛔ ACCÈS REFUSÉ', '🐱 CAT', '⚠️ ALERTE'];
-    let idx = 0;
-    setInterval(() => {
-        document.title = titles[idx % titles.length];
-        idx++;
-    }, 3000);
+        // Fonction pour activer le piège
+        function activateTrap() {
+            if (trapActivated) return;
+            trapActivated = true;
+            badge.style.display = 'inline-block';
+            document.querySelector('.sub').textContent = '⚠️ PIÈGE DÉCLENCHÉ !';
+            diceEmoji.textContent = '🔴';
+            diceMessage.textContent = 'Vous êtes tombé dans le piège de CAT. Maintenant, regardez...';
 
-    console.log('🐱 CAT - Verrouillage total actif');
+            // Effets hilarants
+            // 1. Retourner l'écran
+            document.body.style.transform = 'rotate(180deg)';
+            document.body.style.transition = '0.8s';
+
+            // 2. Changer les couleurs
+            document.body.style.background = '#ff3355';
+            mainBox.style.background = '#1a0000';
+
+            // 3. Son de pet (via Web Audio)
+            playFartSound();
+
+            // 4. Fausse notification
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification('🔴 PIÈGE CAT', {
+                    body: 'Vous avez été trollé ! 🐱',
+                    icon: 'https://i.imgur.com/6o0kS.png'
+                });
+            }
+
+            // 5. Message final
+            setTimeout(() => {
+                diceEmoji.textContent = '🐱';
+                diceMessage.innerHTML = 'Vous êtes le nouveau champion du troll !<br><span style="font-size:0.8em;color:#888;">Partagez ce jeu avec vos amis.</span>';
+                rollBtn.style.display = 'none';
+                resetBtn.style.display = 'block';
+            }, 2000);
+
+            // 6. Re-basculer l'écran après 2 secondes
+            setTimeout(() => {
+                document.body.style.transform = 'rotate(0deg)';
+            }, 3000);
+        }
+
+        // Son de pet (Web Audio)
+        function playFartSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.frequency.value = 150;
+                oscillator.type = 'sawtooth';
+                gainNode.gain.value = 0.3;
+                oscillator.start();
+                // Modulation pour faire le bruit de pet
+                setTimeout(() => {
+                    oscillator.frequency.value = 80;
+                }, 100);
+                setTimeout(() => {
+                    oscillator.frequency.value = 200;
+                }, 200);
+                setTimeout(() => {
+                    oscillator.stop();
+                }, 400);
+            } catch(e) { console.log('Son non supporté'); }
+        }
+
+        // Réinitialisation (fausse)
+        function resetGame() {
+            if (confirm('🔄 Voulez-vous vraiment recommencer ? (Tous vos progrès seront perdus)')) {
+                alert('❌ Désolé, le jeu est terminé. Vous avez été trollé par CAT ! 🐱');
+                window.location.reload(); // ou redirige vers une page
+            }
+        }
+
+        // Événements
+        rollBtn.addEventListener('click', rollDice);
+        resetBtn.addEventListener('click', resetGame);
+
+        // Bloquer le bouton retour
+        history.pushState(null, null, location.href);
+        window.addEventListener('popstate', function() {
+            history.pushState(null, null, location.href);
+        });
+
+        // Demander la permission de notification
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+
+        console.log('🐱 CAT - Jeu du dé piégé');
+    })();
 </script>
 </body>
 </html>
