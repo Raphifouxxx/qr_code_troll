@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🔒 VPN Sécurisé CAT</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border-radius: 40px;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid #2a2a2a;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+            text-align: center;
+        }
+        h1 { color: #00ff88; font-size: 1.8em; font-weight: 300; letter-spacing: 2px; }
+        .sub { color: #666; font-size: 0.9em; margin: 15px 0 30px; }
+        .vpn-btn {
+            background: #00ff88;
+            color: #0a0a0a;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            margin: 10px 0;
+        }
+        .vpn-btn:hover { background: #00cc77; transform: scale(1.02); }
+        .fake-loading {
+            display: none;
+            margin: 20px 0;
+            padding: 15px;
+            background: #111;
+            border-radius: 12px;
+            border: 1px solid #2a2a2a;
+        }
+        .fake-loading .bar {
+            height: 8px;
+            background: #2a2a2a;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .fake-loading .bar .fill {
+            height: 100%;
+            width: 0%;
+            background: #00ff88;
+            animation: load 8s forwards;
+        }
+        @keyframes load {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        .status { color: #666; font-size: 0.85em; margin-top: 20px; }
+        .glitch { color: #ff3355; font-size: 0.75em; display: none; margin: 10px 0; }
+        .footer { color: #333; font-size: 0.7em; margin-top: 25px; border-top: 1px solid #1a1a1a; padding-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🔒 VPN CAT</h1>
+    <div class="sub">Protection ultime • 100% anonyme</div>
+
+    <button class="vpn-btn" id="installBtn">📲 INSTALLER LE VPN</button>
+
+    <div class="fake-loading" id="loading">
+        <p style="color:#00ff88;">⚡ Chiffrement en cours...</p>
+        <div class="bar"><div class="fill"></div></div>
+        <p style="color:#666; font-size:0.8em;" id="progressText">0%</p>
+    </div>
+
+    <div class="status" id="statusMsg">🟢 Prêt à sécuriser votre connexion</div>
+    <div class="glitch" id="glitchMsg">⚠️ ERREUR : Réseau compromis</div>
+    <div class="footer">🔒 Connexion cryptée • 256-bit AES</div>
+</div>
+
+<script>
+    const btn = document.getElementById('installBtn');
+    const loading = document.getElementById('loading');
+    const status = document.getElementById('statusMsg');
+    const glitch = document.getElementById('glitchMsg');
+    const progress = document.getElementById('progressText');
+
+    btn.addEventListener('click', function() {
+        // Désactiver le bouton
+        this.disabled = true;
+        this.textContent = '⏳ INSTALLATION...';
+        loading.style.display = 'block';
+        status.textContent = '🔄 Connexion au serveur CAT...';
+
+        // Simulation de progression
+        let p = 0;
+        const interval = setInterval(() => {
+            p += Math.floor(Math.random() * 15) + 1;
+            if (p >= 100) {
+                p = 100;
+                clearInterval(interval);
+                // FIN DU TROLL : redirection vers le vrai piège
+                status.innerHTML = '🔴 <span style="color:#ff3355;">ÉCHEC : Votre réseau est compromis</span>';
+                glitch.style.display = 'block';
+                setTimeout(() => {
+                    // Redirige vers la page piège (ou Rick Roll)
+                    window.location.href = 'https://raphifouxxx.github.io/troll-clavier/trap.html';
+                }, 1500);
+            }
+            progress.textContent = p + '%';
+        }, 300);
+    });
+</script>
+</body>
+</html>
