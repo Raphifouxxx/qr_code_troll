@@ -3,153 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🔒 VPN CAT</title>
+    <title>📞 APPEL PRIORITAIRE</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: #0a0a0a;
-            font-family: 'Segoe UI', sans-serif;
+            background: #000;
+            font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-            border-radius: 40px;
-            padding: 40px 30px;
-            max-width: 500px;
-            width: 100%;
-            border: 1px solid #2a2a2a;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-            text-align: center;
-        }
-        h1 { color: #00ff88; font-size: 1.8em; font-weight: 300; letter-spacing: 2px; }
-        .sub { color: #666; font-size: 0.9em; margin: 15px 0 30px; }
-        .vpn-btn {
-            background: #00ff88;
-            color: #0a0a0a;
-            border: none;
-            padding: 18px 40px;
-            font-size: 1.2em;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            width: 100%;
-            margin: 10px 0;
-        }
-        .vpn-btn:hover { background: #00cc77; transform: scale(1.02); }
-        .vpn-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .fake-loading {
-            display: none;
-            margin: 20px 0;
             padding: 15px;
-            background: #111;
-            border-radius: 12px;
-            border: 1px solid #2a2a2a;
-        }
-        .fake-loading .bar {
-            height: 8px;
-            background: #2a2a2a;
-            border-radius: 10px;
+            margin: 0;
             overflow: hidden;
+        }
+        .call-container {
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            border-radius: 50px;
+            padding: 35px 25px 30px;
+            max-width: 420px;
+            width: 100%;
+            border: 2px solid #ff3355;
+            box-shadow: 0 0 60px rgba(255, 51, 85, 0.3);
+            text-align: center;
+            animation: pulse-border 1.5s infinite;
+        }
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 20px #ff335566; }
+            50% { box-shadow: 0 0 60px #ff3355aa; }
+            100% { box-shadow: 0 0 20px #ff335566; }
+        }
+        .call-icon {
+            font-size: 4em;
+            margin-bottom: 5px;
+            animation: vibrate-phone 1s infinite;
+        }
+        @keyframes vibrate-phone {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+        }
+        .call-title {
+            color: #ff3355;
+            font-size: 1.8em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px #ff3355;
             margin: 10px 0;
         }
-        .fake-loading .bar .fill {
-            height: 100%;
-            width: 0%;
-            background: #00ff88;
-            animation: load 8s forwards;
+        .call-sub {
+            color: #ff8888;
+            font-size: 1em;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 15px;
         }
-        @keyframes load {
-            0% { width: 0%; }
-            100% { width: 100%; }
+        .caller-info {
+            background: #111;
+            border-radius: 30px;
+            padding: 25px 15px;
+            margin: 20px 0;
+            border: 1px solid #2a2a2a;
         }
-        .status { color: #666; font-size: 0.85em; margin-top: 20px; }
-        .glitch { color: #ff3355; font-size: 0.75em; display: none; margin: 10px 0; }
-        .footer { color: #333; font-size: 0.7em; margin-top: 25px; border-top: 1px solid #1a1a1a; padding-top: 20px; }
+        .caller-name {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+        .caller-number {
+            color: #888;
+            font-size: 1.2em;
+            margin-top: 5px;
+            font-family: monospace;
+        }
+        .caller-badge {
+            display: inline-block;
+            background: #ff335544;
+            color: #ff3355;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.7em;
+            font-weight: 600;
+            margin-top: 8px;
+            border: 1px solid #ff335566;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .btn {
+            flex: 1;
+            padding: 16px 10px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #fff;
+        }
+        .btn-accept {
+            background: #00cc66;
+            box-shadow: 0 0 20px #00cc6644;
+        }
+        .btn-accept:active { background: #009944; }
+        .btn-decline {
+            background: #ff3355;
+            box-shadow: 0 0 20px #ff335544;
+        }
+        .btn-decline:active { background: #cc1133; }
+        .btn:disabled {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+        .footer {
+            margin-top: 25px;
+            color: #333;
+            font-size: 0.65em;
+            border-top: 1px solid #1a1a1a;
+            padding-top: 15px;
+        }
+        .vibration-indicator {
+            color: #ff3355;
+            font-size: 0.8em;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>🔒 VPN CAT</h1>
-    <div class="sub">Protection ultime • 100% anonyme</div>
 
-    <button class="vpn-btn" id="installBtn">📲 INSTALLER LE VPN</button>
+<div class="call-container" id="callScreen">
+    <div class="call-icon">📞</div>
+    <div class="call-title">APPEL PRIORITAIRE</div>
+    <div class="call-sub">🔴 Sécurité CAT • Niveau 1</div>
 
-    <div class="fake-loading" id="loading">
-        <p style="color:#00ff88;">⚡ Configuration réseau...</p>
-        <div class="bar"><div class="fill"></div></div>
-        <p style="color:#666; font-size:0.8em;" id="progressText">0%</p>
+    <div class="caller-info">
+        <div class="caller-name">🚨 SÉCURITÉ CAT</div>
+        <div class="caller-number">+33 6 66 66 66 66</div>
+        <div class="caller-badge">⚠️ APPEL D'URGENCE</div>
     </div>
 
-    <div class="status" id="statusMsg">🟢 Prêt à sécuriser votre connexion</div>
-    <div class="glitch" id="glitchMsg">⚠️ ERREUR : Réseau compromis</div>
-    <div class="footer">🔒 Connexion cryptée • 256-bit AES</div>
+    <div class="action-buttons">
+        <button class="btn btn-decline" id="declineBtn">🔴 Refuser</button>
+        <button class="btn btn-accept" id="acceptBtn">🟢 Accepter</button>
+    </div>
+
+    <div class="vibration-indicator" id="vibeStatus">📳 Vibration active</div>
+    <div class="footer">🔒 Appel crypté • ID: CAT-2026-07</div>
 </div>
 
 <script>
-    const btn = document.getElementById('installBtn');
-    const loading = document.getElementById('loading');
-    const status = document.getElementById('statusMsg');
-    const glitch = document.getElementById('glitchMsg');
-    const progress = document.getElementById('progressText');
-
-    // Détection Android
-    const isAndroid = navigator.userAgent.toLowerCase().includes('android');
-
-    btn.addEventListener('click', function() {
-        this.disabled = true;
-        this.textContent = '⏳ INSTALLATION...';
-        loading.style.display = 'block';
-        status.textContent = '🔄 Configuration du réseau...';
-
-        let p = 0;
-        const interval = setInterval(() => {
-            p += Math.floor(Math.random() * 15) + 1;
-            if (p >= 100) {
-                p = 100;
-                clearInterval(interval);
-
-                if (isAndroid) {
-                    // TROLL POUR ANDROID : DNS PIÉGÉ
-                    status.innerHTML = '🔴 <span style="color:#ff3355;">Configuration réseau modifiée</span>';
-                    glitch.style.display = 'block';
-                    glitch.textContent = '⚠️ Redirection DNS activée';
-
-                    // 1. Ouvre le paramètre DNS privé (Android 9+)
-                    setTimeout(() => {
-                        window.location.href = 'intent://settings//#Intent;action=android.settings.WIFI_IP_SETTINGS;end';
-                    }, 1000);
-
-                    // 2. Après 3 secondes, envoie la notification de piège
-                    setTimeout(() => {
-                        // Simule un téléchargement du faux profil DNS
-                        const link = document.createElement('a');
-                        link.href = 'dns-config.xml';
-                        link.download = 'dns-config.xml';
-                        link.click();
-
-                        // Redirige vers trap.html
-                        setTimeout(() => {
-                            window.location.href = 'trap.html';
-                        }, 1500);
-                    }, 3000);
-
-                } else {
-                    // Version iOS ou autre
-                    status.innerHTML = '🔴 <span style="color:#ff3355;">ÉCHEC : Réseau compromis</span>';
-                    glitch.style.display = 'block';
-                    setTimeout(() => {
-                        window.location.href = 'trap.html';
-                    }, 1500);
-                }
+    (function() {
+        // ---------- VIBRATION ----------
+        function startVibration() {
+            if (navigator.vibrate) {
+                // Vibration longue et rythmée
+                const pattern = [500, 200, 500, 200, 1000, 300, 300, 300, 500];
+                navigator.vibrate(pattern);
+                // On relance toutes les 4 secondes
+                setInterval(() => {
+                    navigator.vibrate(pattern);
+                }, 4500);
+            } else {
+                document.getElementById('vibeStatus').textContent = '🔕 Vibration non supportée';
             }
-            progress.textContent = p + '%';
-        }, 300);
-    });
+        }
+        startVibration();
+
+        // ---------- EMPÊCHER LA SORTIE (bouton retour) ----------
+        history.pushState(null, null, window.location.href);
+        window.addEventListener('popstate', function(e) {
+            history.pushState(null, null, window.location.href);
+            // Petit effet supplémentaire
+            document.body.style.backgroundColor = '#1a0000';
+            setTimeout(() => document.body.style.backgroundColor = '#000', 300);
+        });
+
+        // ---------- BLOQUER LES BOUTONS ----------
+        const acceptBtn = document.getElementById('acceptBtn');
+        const declineBtn = document.getElementById('declineBtn');
+
+        function disableButtons() {
+            acceptBtn.disabled = true;
+            declineBtn.disabled = true;
+            acceptBtn.textContent = '⏳ Traitement...';
+            declineBtn.textContent = '⏳ Traitement...';
+        }
+
+        acceptBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            disableButtons();
+            document.querySelector('.caller-name').textContent = '🔐 VERROUILLÉ';
+            document.querySelector('.caller-number').textContent = 'ACCÈS REFUSÉ';
+            document.querySelector('.caller-badge').textContent = '⚠️ ALERTE MAXIMALE';
+            document.querySelector('.call-title').textContent = '⛔ ACCÈS BLOQUÉ';
+            document.querySelector('.call-sub').textContent = 'Contactez le support CAT';
+            // Alerte popup
+            setTimeout(() => {
+                alert('🔴 VOTRE APPEL A ÉTÉ INTERCEPTÉ PAR CAT');
+                alert('📲 Suivez les instructions à l\'écran');
+            }, 300);
+            // Vibration plus forte
+            navigator.vibrate([1000, 500, 1000, 500, 2000]);
+            // Re-blocage après 5 secondes
+            setTimeout(() => {
+                location.reload(); // ou redirige vers trap.html
+            }, 8000);
+        });
+
+        declineBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            disableButtons();
+            document.querySelector('.caller-name').textContent = '📵 APPEL REFUSÉ';
+            document.querySelector('.caller-number').textContent = 'TENTATIVE ÉCHOUÉE';
+            document.querySelector('.caller-badge').textContent = '⚠️ SANCTION CAT';
+            document.querySelector('.call-title').textContent = '🔴 MENACE DÉTECTÉE';
+            document.querySelector('.call-sub').textContent = 'Votre appareil est verrouillé';
+            alert('🔴 VOUS NE POUVEZ PAS REFUSER CET APPEL');
+            // Redémarrage du cycle
+            setTimeout(() => {
+                location.reload();
+            }, 4000);
+        });
+
+        // ---------- DÉTECTION DE L'UTILISATION DU TÉLÉPHONE (pour iOS) ----------
+        // Sur iOS, la vibration ne fonctionne qu'en réponse à une interaction utilisateur.
+        // On ajoute un déclencheur au premier clic.
+        document.addEventListener('click', function() {
+            if (navigator.vibrate) {
+                navigator.vibrate(100);
+            }
+        }, { once: true });
+
+        // ---------- CHANGEMENT DYNAMIQUE DU TITRE (pour le chat) ----------
+        const originalTitle = document.title;
+        const titles = ['📞 APPEL ENTRANT', '🔴 URGENCE', '🐱 CAT', '⛔ BLOQUÉ'];
+        let idx = 0;
+        setInterval(() => {
+            document.title = titles[idx % titles.length];
+            idx++;
+        }, 3000);
+
+        // ---------- AFFICHER UNE FAUSSE NOTIFICATION (Chrome Android) ----------
+        if ('Notification' in window && Notification.permission === 'granted') {
+            setTimeout(() => {
+                new Notification('🔴 ALERTE CAT', {
+                    body: 'Appel prioritaire entrant - Répondez immédiatement',
+                    icon: 'https://i.imgur.com/6o0kS.png'
+                });
+            }, 2000);
+        } else if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+
+        console.log('🐱 CAT - Appel d\'urgence actif');
+    })();
 </script>
 </body>
 </html>
