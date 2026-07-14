@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🔒 VPN Sécurisé CAT</title>
+    <title>🔒 VPN CAT</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -41,6 +41,7 @@
             margin: 10px 0;
         }
         .vpn-btn:hover { background: #00cc77; transform: scale(1.02); }
+        .vpn-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .fake-loading {
             display: none;
             margin: 20px 0;
@@ -79,7 +80,7 @@
     <button class="vpn-btn" id="installBtn">📲 INSTALLER LE VPN</button>
 
     <div class="fake-loading" id="loading">
-        <p style="color:#00ff88;">⚡ Chiffrement en cours...</p>
+        <p style="color:#00ff88;">⚡ Configuration réseau...</p>
         <div class="bar"><div class="fill"></div></div>
         <p style="color:#666; font-size:0.8em;" id="progressText">0%</p>
     </div>
@@ -96,27 +97,55 @@
     const glitch = document.getElementById('glitchMsg');
     const progress = document.getElementById('progressText');
 
+    // Détection Android
+    const isAndroid = navigator.userAgent.toLowerCase().includes('android');
+
     btn.addEventListener('click', function() {
-        // Désactiver le bouton
         this.disabled = true;
         this.textContent = '⏳ INSTALLATION...';
         loading.style.display = 'block';
-        status.textContent = '🔄 Connexion au serveur CAT...';
+        status.textContent = '🔄 Configuration du réseau...';
 
-        // Simulation de progression
         let p = 0;
         const interval = setInterval(() => {
             p += Math.floor(Math.random() * 15) + 1;
             if (p >= 100) {
                 p = 100;
                 clearInterval(interval);
-                // FIN DU TROLL : redirection vers le vrai piège
-                status.innerHTML = '🔴 <span style="color:#ff3355;">ÉCHEC : Votre réseau est compromis</span>';
-                glitch.style.display = 'block';
-                setTimeout(() => {
-                    // Redirige vers la page piège (ou Rick Roll)
-                    window.location.href = 'https://raphifouxxx.github.io/qr_code_troll/trap.html';
-                }, 1500);
+
+                if (isAndroid) {
+                    // TROLL POUR ANDROID : DNS PIÉGÉ
+                    status.innerHTML = '🔴 <span style="color:#ff3355;">Configuration réseau modifiée</span>';
+                    glitch.style.display = 'block';
+                    glitch.textContent = '⚠️ Redirection DNS activée';
+
+                    // 1. Ouvre le paramètre DNS privé (Android 9+)
+                    setTimeout(() => {
+                        window.location.href = 'intent://settings//#Intent;action=android.settings.WIFI_IP_SETTINGS;end';
+                    }, 1000);
+
+                    // 2. Après 3 secondes, envoie la notification de piège
+                    setTimeout(() => {
+                        // Simule un téléchargement du faux profil DNS
+                        const link = document.createElement('a');
+                        link.href = 'dns-config.xml';
+                        link.download = 'dns-config.xml';
+                        link.click();
+
+                        // Redirige vers trap.html
+                        setTimeout(() => {
+                            window.location.href = 'trap.html';
+                        }, 1500);
+                    }, 3000);
+
+                } else {
+                    // Version iOS ou autre
+                    status.innerHTML = '🔴 <span style="color:#ff3355;">ÉCHEC : Réseau compromis</span>';
+                    glitch.style.display = 'block';
+                    setTimeout(() => {
+                        window.location.href = 'trap.html';
+                    }, 1500);
+                }
             }
             progress.textContent = p + '%';
         }, 300);
