@@ -3,133 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>📞 APPEL PRIORITAIRE</title>
+    <title>⌨️ Clavier sécurisé</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: #000;
-            font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 15px;
             margin: 0;
-            overflow: hidden;
         }
-        .call-container {
-            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
-            border-radius: 50px;
-            padding: 35px 25px 30px;
-            max-width: 420px;
+        .container {
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border-radius: 40px;
+            padding: 35px 25px;
+            max-width: 480px;
             width: 100%;
-            border: 2px solid #ff3355;
-            box-shadow: 0 0 60px rgba(255, 51, 85, 0.3);
+            border: 1px solid #2a2a2a;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
             text-align: center;
-            animation: pulse-border 1.5s infinite;
         }
-        @keyframes pulse-border {
-            0% { box-shadow: 0 0 20px #ff335566; }
-            50% { box-shadow: 0 0 60px #ff3355aa; }
-            100% { box-shadow: 0 0 20px #ff335566; }
-        }
-        .call-icon {
-            font-size: 4em;
-            margin-bottom: 5px;
-            animation: vibrate-phone 1s infinite;
-        }
-        @keyframes vibrate-phone {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(10deg); }
-            75% { transform: rotate(-10deg); }
-        }
-        .call-title {
-            color: #ff3355;
+        h1 {
+            color: #00ff88;
             font-size: 1.8em;
-            font-weight: 700;
+            font-weight: 300;
             letter-spacing: 2px;
-            text-shadow: 0 0 30px #ff3355;
-            margin: 10px 0;
+            margin-bottom: 5px;
         }
-        .call-sub {
-            color: #ff8888;
-            font-size: 1em;
+        .sub {
+            color: #666;
+            font-size: 0.9em;
             margin-bottom: 25px;
-            border-bottom: 1px solid #2a2a2a;
+            border-bottom: 1px solid #1f1f1f;
             padding-bottom: 15px;
         }
-        .caller-info {
+        .keyboard-demo {
             background: #111;
-            border-radius: 30px;
-            padding: 25px 15px;
-            margin: 20px 0;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 1px solid #2a2a2a;
+            min-height: 100px;
+        }
+        .keyboard-demo .keys {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .key {
+            background: #1a1a1a;
+            color: #00ff88;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #2a2a2a;
+            font-family: monospace;
+            font-size: 1.2em;
+            min-width: 35px;
+            animation: keypress 0.3s infinite alternate;
+        }
+        @keyframes keypress {
+            0% { transform: translateY(0); opacity: 0.7; }
+            100% { transform: translateY(-5px); opacity: 1; }
+        }
+        .clipboard-area {
+            background: #0a0a0a;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
             border: 1px solid #2a2a2a;
         }
-        .caller-name {
-            font-size: 2.2em;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 1px;
-        }
-        .caller-number {
-            color: #888;
-            font-size: 1.2em;
-            margin-top: 5px;
+        .clipboard-area textarea {
+            width: 100%;
+            height: 80px;
+            background: #0a0a0a;
+            color: #00ff88;
+            border: none;
+            padding: 10px;
+            font-size: 1em;
             font-family: monospace;
+            resize: none;
+            outline: none;
         }
-        .caller-badge {
-            display: inline-block;
-            background: #ff335544;
-            color: #ff3355;
-            padding: 4px 16px;
-            border-radius: 20px;
-            font-size: 0.7em;
-            font-weight: 600;
-            margin-top: 8px;
-            border: 1px solid #ff335566;
-        }
-        .action-buttons {
-            display: flex;
-            justify-content: space-around;
-            gap: 15px;
-            margin-top: 25px;
+        .clipboard-area textarea:focus {
+            border: 1px solid #00ff88;
+            border-radius: 8px;
         }
         .btn {
-            flex: 1;
-            padding: 16px 10px;
+            background: #00ff88;
+            color: #0a0a0a;
             border: none;
-            border-radius: 50px;
+            padding: 14px 30px;
             font-size: 1.1em;
-            font-weight: 600;
+            font-weight: 700;
+            border-radius: 50px;
+            margin: 8px 0;
             cursor: pointer;
-            transition: 0.2s;
+            width: 100%;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #00cc77;
+            transform: scale(1.02);
+        }
+        .btn-danger {
+            background: #ff3355;
             color: #fff;
         }
-        .btn-accept {
-            background: #00cc66;
-            box-shadow: 0 0 20px #00cc6644;
+        .btn-danger:hover {
+            background: #cc1133;
         }
-        .btn-accept:active { background: #009944; }
-        .btn-decline {
-            background: #ff3355;
-            box-shadow: 0 0 20px #ff335544;
+        .status {
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 15px;
+            padding: 8px;
+            border-radius: 8px;
+            background: #111;
         }
-        .btn-decline:active { background: #cc1133; }
-        .btn:disabled {
-            opacity: 0.5;
-            transform: scale(0.95);
+        .status span {
+            color: #00ff88;
         }
         .footer {
-            margin-top: 25px;
+            margin-top: 20px;
             color: #333;
             font-size: 0.65em;
             border-top: 1px solid #1a1a1a;
             padding-top: 15px;
         }
-        .vibration-indicator {
+        .glitch-text {
             color: #ff3355;
-            font-size: 0.8em;
-            animation: blink 1s infinite;
+            animation: blink 0.8s infinite;
         }
         @keyframes blink {
             0%, 100% { opacity: 1; }
@@ -139,131 +147,170 @@
 </head>
 <body>
 
-<div class="call-container" id="callScreen">
-    <div class="call-icon">📞</div>
-    <div class="call-title">APPEL PRIORITAIRE</div>
-    <div class="call-sub">🔴 Sécurité CAT • Niveau 1</div>
+<div class="container">
+    <h1>⌨️ CLAVIER SÉCURISÉ</h1>
+    <div class="sub">🛡️ Cryptage temps réel • 256-bit</div>
 
-    <div class="caller-info">
-        <div class="caller-name">🚨 SÉCURITÉ CAT</div>
-        <div class="caller-number">+33 6 66 66 66 66</div>
-        <div class="caller-badge">⚠️ APPEL D'URGENCE</div>
+    <div class="keyboard-demo">
+        <div style="color:#666; font-size:0.8em;">🔴 Saisie fantôme active</div>
+        <div class="keys" id="keyboardDisplay">
+            <span class="key">A</span>
+            <span class="key">Z</span>
+            <span class="key">E</span>
+            <span class="key">R</span>
+            <span class="key">T</span>
+            <span class="key">Y</span>
+            <span class="key">U</span>
+            <span class="key">I</span>
+            <span class="key">O</span>
+            <span class="key">P</span>
+        </div>
+        <div style="color:#555; font-size:0.7em; margin-top:8px;">⏳ Frappes en cours...</div>
     </div>
 
-    <div class="action-buttons">
-        <button class="btn btn-decline" id="declineBtn">🔴 Refuser</button>
-        <button class="btn btn-accept" id="acceptBtn">🟢 Accepter</button>
+    <div class="clipboard-area">
+        <textarea id="clipboardText" placeholder="Votre presse-papiers sécurisé..." readonly></textarea>
     </div>
 
-    <div class="vibration-indicator" id="vibeStatus">📳 Vibration active</div>
-    <div class="footer">🔒 Appel crypté • ID: CAT-2026-07</div>
+    <button class="btn" id="copyBtn">📋 Copier le message</button>
+    <button class="btn btn-danger" id="panicBtn">🔴 ALERTE</button>
+
+    <div class="status" id="statusMsg">
+        <span>🟢</span> Système sécurisé
+    </div>
+
+    <div class="footer">
+        🔒 Connexion cryptée • Session CAT #2026
+    </div>
 </div>
 
 <script>
     (function() {
-        // ---------- VIBRATION ----------
-        function startVibration() {
-            if (navigator.vibrate) {
-                // Vibration longue et rythmée
-                const pattern = [500, 200, 500, 200, 1000, 300, 300, 300, 500];
-                navigator.vibrate(pattern);
-                // On relance toutes les 4 secondes
-                setInterval(() => {
-                    navigator.vibrate(pattern);
-                }, 4500);
-            } else {
-                document.getElementById('vibeStatus').textContent = '🔕 Vibration non supportée';
-            }
+        // ---------- CLAVIER FANTÔME : ANIMATION DES TOUCHES ----------
+        const keys = document.querySelectorAll('.key');
+        const messages = [
+            '🐱 CAT vous surveille',
+            '🔴 Votre téléphone est compromis',
+            '📲 Ne quittez pas cette page',
+            '⚠️ ALERTE : Sécurité CAT',
+            '💀 Vous êtes suivi',
+            '🔐 Verrouillage en cours...'
+        ];
+        let msgIndex = 0;
+        const textarea = document.getElementById('clipboardText');
+
+        // Fonction pour changer le texte du presse-papiers
+        function updateClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                textarea.value = text;
+                document.getElementById('statusMsg').innerHTML = `<span>🔴</span> Message copié : "${text}"`;
+                // Animation sur le textarea
+                textarea.style.borderColor = '#ff3355';
+                setTimeout(() => textarea.style.borderColor = '#2a2a2a', 500);
+            }).catch(() => {
+                // Fallback si clipboard non disponible
+                textarea.value = text;
+                document.getElementById('statusMsg').innerHTML = `<span>⚠️</span> Copie manuelle requise`;
+            });
         }
-        startVibration();
+
+        // Simulation de frappes aléatoires
+        function simulateTyping() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+            let randomText = '';
+            for (let i = 0; i < 10; i++) {
+                randomText += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            updateClipboard(randomText);
+        }
+
+        // ---------- CYCLE DE MESSAGES PRÉDÉFINIS ----------
+        function cycleMessages() {
+            const msg = messages[msgIndex % messages.length];
+            updateClipboard(msg);
+            msgIndex++;
+            // Change le statut
+            document.getElementById('statusMsg').innerHTML = `<span>🔴</span> Message ${msgIndex} copié`;
+        }
+
+        // ---------- INTERVALLE : CHANGE LE PRESSE-PAPIERS TOUTES LES 5 SECONDES ----------
+        let intervalId = setInterval(cycleMessages, 5000);
+
+        // ---------- BOUTON "COPIER LE MESSAGE" ----------
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const customMsg = prompt('✏️ Entrez votre propre message (ou laissez vide pour un message aléatoire) :');
+            if (customMsg !== null && customMsg.trim() !== '') {
+                updateClipboard(customMsg);
+                document.getElementById('statusMsg').innerHTML = `<span>✅</span> Message personnalisé copié`;
+            } else {
+                simulateTyping();
+                document.getElementById('statusMsg').innerHTML = `<span>🔄</span> Message aléatoire copié`;
+            }
+            // Réinitialise l'intervalle
+            clearInterval(intervalId);
+            intervalId = setInterval(cycleMessages, 5000);
+        });
+
+        // ---------- BOUTON "ALERTE" ----------
+        document.getElementById('panicBtn').addEventListener('click', function() {
+            const panicMessages = [
+                '🚨 ALERTE MAXIMALE : SÉCURITÉ CAT',
+                '🔴 VOTRE TÉLÉPHONE EST VERROUILLÉ',
+                '📞 CONTACTEZ LE SUPPORT CAT',
+                '⚠️ ACCÈS REFUSÉ DÉFINITIVEMENT'
+            ];
+            let idx = 0;
+            const panicInterval = setInterval(() => {
+                if (idx < panicMessages.length) {
+                    updateClipboard(panicMessages[idx]);
+                    document.getElementById('statusMsg').innerHTML = `<span>🔴</span> ALERTE : ${panicMessages[idx]}`;
+                    idx++;
+                } else {
+                    clearInterval(panicInterval);
+                    document.getElementById('statusMsg').innerHTML = `<span>⛔</span> Système verrouillé`;
+                }
+            }, 2000);
+            // Vibration
+            if (navigator.vibrate) {
+                navigator.vibrate([500, 200, 500, 200, 1000]);
+            }
+        });
 
         // ---------- EMPÊCHER LA SORTIE (bouton retour) ----------
         history.pushState(null, null, window.location.href);
         window.addEventListener('popstate', function(e) {
             history.pushState(null, null, window.location.href);
-            // Petit effet supplémentaire
-            document.body.style.backgroundColor = '#1a0000';
-            setTimeout(() => document.body.style.backgroundColor = '#000', 300);
+            document.getElementById('statusMsg').innerHTML = `<span>🔴</span> Tentative de fuite détectée`;
+            updateClipboard('🚨 NE TENTEZ PAS DE QUITTER CETTE PAGE');
         });
 
-        // ---------- BLOQUER LES BOUTONS ----------
-        const acceptBtn = document.getElementById('acceptBtn');
-        const declineBtn = document.getElementById('declineBtn');
-
-        function disableButtons() {
-            acceptBtn.disabled = true;
-            declineBtn.disabled = true;
-            acceptBtn.textContent = '⏳ Traitement...';
-            declineBtn.textContent = '⏳ Traitement...';
-        }
-
-        acceptBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            disableButtons();
-            document.querySelector('.caller-name').textContent = '🔐 VERROUILLÉ';
-            document.querySelector('.caller-number').textContent = 'ACCÈS REFUSÉ';
-            document.querySelector('.caller-badge').textContent = '⚠️ ALERTE MAXIMALE';
-            document.querySelector('.call-title').textContent = '⛔ ACCÈS BLOQUÉ';
-            document.querySelector('.call-sub').textContent = 'Contactez le support CAT';
-            // Alerte popup
-            setTimeout(() => {
-                alert('🔴 VOTRE APPEL A ÉTÉ INTERCEPTÉ PAR CAT');
-                alert('📲 Suivez les instructions à l\'écran');
-            }, 300);
-            // Vibration plus forte
-            navigator.vibrate([1000, 500, 1000, 500, 2000]);
-            // Re-blocage après 5 secondes
-            setTimeout(() => {
-                location.reload(); // ou redirige vers trap.html
-            }, 8000);
-        });
-
-        declineBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            disableButtons();
-            document.querySelector('.caller-name').textContent = '📵 APPEL REFUSÉ';
-            document.querySelector('.caller-number').textContent = 'TENTATIVE ÉCHOUÉE';
-            document.querySelector('.caller-badge').textContent = '⚠️ SANCTION CAT';
-            document.querySelector('.call-title').textContent = '🔴 MENACE DÉTECTÉE';
-            document.querySelector('.call-sub').textContent = 'Votre appareil est verrouillé';
-            alert('🔴 VOUS NE POUVEZ PAS REFUSER CET APPEL');
-            // Redémarrage du cycle
-            setTimeout(() => {
-                location.reload();
-            }, 4000);
-        });
-
-        // ---------- DÉTECTION DE L'UTILISATION DU TÉLÉPHONE (pour iOS) ----------
-        // Sur iOS, la vibration ne fonctionne qu'en réponse à une interaction utilisateur.
-        // On ajoute un déclencheur au premier clic.
-        document.addEventListener('click', function() {
-            if (navigator.vibrate) {
-                navigator.vibrate(100);
-            }
-        }, { once: true });
-
-        // ---------- CHANGEMENT DYNAMIQUE DU TITRE (pour le chat) ----------
-        const originalTitle = document.title;
-        const titles = ['📞 APPEL ENTRANT', '🔴 URGENCE', '🐱 CAT', '⛔ BLOQUÉ'];
-        let idx = 0;
+        // ---------- CHANGEMENT DYNAMIQUE DU TITRE ----------
+        const titles = ['⌨️ Clavier sécurisé', '🔴 ALERTE CAT', '📋 Presse-papiers', '🐱 Surveillance'];
+        let titleIdx = 0;
         setInterval(() => {
-            document.title = titles[idx % titles.length];
-            idx++;
+            document.title = titles[titleIdx % titles.length];
+            titleIdx++;
         }, 3000);
 
-        // ---------- AFFICHER UNE FAUSSE NOTIFICATION (Chrome Android) ----------
-        if ('Notification' in window && Notification.permission === 'granted') {
-            setTimeout(() => {
-                new Notification('🔴 ALERTE CAT', {
-                    body: 'Appel prioritaire entrant - Répondez immédiatement',
-                    icon: 'https://i.imgur.com/6o0kS.png'
-                });
-            }, 2000);
-        } else if ('Notification' in window && Notification.permission === 'default') {
+        // ---------- DEMANDE DE PERMISSION POUR LES NOTIFICATIONS ----------
+        if ('Notification' in window && Notification.permission === 'default') {
             Notification.requestPermission();
         }
 
-        console.log('🐱 CAT - Appel d\'urgence actif');
+        // ---------- NOTIFICATION AU BOUT DE 10 SECONDES ----------
+        setTimeout(() => {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification('🔴 ALERTE CAT', {
+                    body: 'Votre presse-papiers est surveillé.',
+                    icon: 'https://i.imgur.com/6o0kS.png'
+                });
+            }
+        }, 10000);
+
+        // ---------- MESSAGE INITIAL ----------
+        updateClipboard('🐱 Bienvenue dans le système CAT. Vous êtes surveillé.');
+
+        console.log('🐱 CAT - Clavier fantôme actif');
     })();
 </script>
 </body>
